@@ -9,7 +9,7 @@ for _stream in (sys.stdin, sys.stdout, sys.stderr):
     if hasattr(_stream, "reconfigure"):
         try:
             _stream.reconfigure(encoding="utf-8", errors="replace")
-        except Exception:
+        except (ValueError, OSError):
             pass
 
 
@@ -21,6 +21,7 @@ MIN_WEIGHT = 20
 MAX_WEIGHT = 300
 MIN_HEIGHT = 1.0
 MAX_HEIGHT = 3.0
+LITER = 1000
 
 
 def input_name():
@@ -45,8 +46,8 @@ def input_age():
         if MIN_AGE <= value <= MAX_AGE:
             return value
         print(
-            f"Ошибка. Возраст должен быть от {MIN_AGE} "
-            f"до {MAX_AGE}."
+            f"Ошибка. Возраст должен быть от {MIN_AGE}",
+            f"до {MAX_AGE}.",
         )
 
 
@@ -62,8 +63,8 @@ def input_weight():
         if MIN_WEIGHT <= value <= MAX_WEIGHT:
             return round(value, 2)
         print(
-            f"Ошибка. Вес должен быть от {MIN_WEIGHT} "
-            f"до {MAX_WEIGHT}."
+            f"Ошибка. Вес должен быть от {MIN_WEIGHT}",
+            f"до {MAX_WEIGHT}.",
         )
 
 
@@ -105,7 +106,8 @@ user_height = input_height()
 # 3. Расчеты
 user_bmi = round(calculate_bmi(user_weight, user_height), 1)
 water_needed_ml = round(calculate_water(user_weight))
-water_needed_l = water_needed_ml / 1000
+water_needed_l = water_needed_ml / LITER
+
 
 # 4. Вывод результата
 print(f"Привет, {user_name}!")
