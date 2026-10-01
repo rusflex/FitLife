@@ -80,8 +80,8 @@ def input_height():
         if MIN_HEIGHT <= value <= MAX_HEIGHT:
             return round(value, 2)
         print(
-            f"Ошибка. Рост должен быть от {MIN_HEIGHT} "
-            f"до {MAX_HEIGHT}."
+            f"Ошибка. Рост должен быть от {MIN_HEIGHT}",
+            f"до {MAX_HEIGHT}.",
         )
 
 
