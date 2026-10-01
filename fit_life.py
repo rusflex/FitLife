@@ -21,15 +21,13 @@ MIN_WEIGHT = 20
 MAX_WEIGHT = 300
 MIN_HEIGHT = 1.0
 MAX_HEIGHT = 3.0
-LITER = 1000
+ML_PER_LITER = 1000
 
 
 def input_name():
     """Запрашивает имя пользователя и проверяет, что оно не пустое."""
     while True:
-        name = input(
-            "Здравствуйте, пожалуйста, введите ваше имя: "
-        ).strip()
+        name = input("Здравствуйте, пожалуйста, введите ваше имя: ").strip()
         if name:
             return name
         print("Ошибка. Имя не может быть пустым.")
@@ -95,23 +93,31 @@ def calculate_water(weight):
     return int(weight * WATER_PER_KG)
 
 
-# 1. Знакомство
-user_name = input_name()
-user_age = input_age()
+def main():
+    """Собираем данные пользователя и возвращаем результаты расчётов"""
+    # 1. Знакомство
+    user_name = input_name()
+    user_age = input_age()
 
-# 2. Сбор данных
-user_weight = input_weight()
-user_height = input_height()
+    # 2. Сбор данных
+    user_weight = input_weight()
+    user_height = input_height()
 
-# 3. Расчеты
-user_bmi = round(calculate_bmi(user_weight, user_height), 1)
-water_needed_ml = round(calculate_water(user_weight))
-water_needed_l = water_needed_ml / LITER
+    # 3. Расчеты
+    user_bmi = round(calculate_bmi(user_weight, user_height), 1)
+    water_needed_ml = round(calculate_water(user_weight))
+    water_needed_l = water_needed_ml / ML_PER_LITER
+    # Возвращаем необходимые для вывода данные
+    return user_name, user_age, user_bmi, water_needed_l
 
 
 # 4. Вывод результата
-print(f"Привет, {user_name}!")
-print(f"Ваш возраст: {user_age}")
-print(f"Ваш ИМТ: {user_bmi}.")
-print(f"Рекомендуемая норма воды: {water_needed_l} л.")
-print("Расчет окончен. Будьте здоровы!")
+if __name__ == '__main__':
+    user_name, user_age, user_bmi, water_needed_l = main()
+    print(
+        f"Привет, {user_name}!\n"
+        f"Ваш возраст: {user_age}\n"
+        f"Ваш ИМТ: {user_bmi}.\n"
+        f"Рекомендуемая норма воды: {water_needed_l} л.\n"
+        "Расчет окончен. Будьте здоровы!"
+    )
